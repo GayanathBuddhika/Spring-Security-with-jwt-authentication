@@ -3,8 +3,11 @@ package io.javabrains.springsecurityjwt;
 import io.javabrains.springsecurityjwt.filters.JwtRequestFilter;
 import io.javabrains.springsecurityjwt.models.AuthenticationRequest;
 import io.javabrains.springsecurityjwt.models.AuthenticationResponse;
+import io.javabrains.springsecurityjwt.models.Usert;
 import io.javabrains.springsecurityjwt.util.JwtUtil;
 import repository.UserRepository;
+
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -48,6 +51,9 @@ class HelloWorldController {
 
 	@Autowired
 	private JwtUtil jwtTokenUtil;
+	
+	@Autowired
+	private UserRepository uerRepository;
 
 	@Autowired
 	private MyUserDetailsService userDetailsService;
@@ -74,8 +80,10 @@ class HelloWorldController {
 				.loadUserByUsername(authenticationRequest.getUsername());
 
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
+		
+		Optional<Usert> user = uerRepository.findByName(authenticationRequest.getUsername());
 
-		return ResponseEntity.ok(new AuthenticationResponse(jwt));
+		return ResponseEntity.ok(new AuthenticationResponse(jwt, user.get()));
 	}
 
 }

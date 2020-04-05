@@ -11,5 +11,6 @@ import io.javabrains.springsecurityjwt.models.Usert;
 public interface UserRepository extends JpaRepository<Usert, String> {
 	
 	Optional<Usert> findByName(String userName);
+	
 
 }
