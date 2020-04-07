@@ -3,9 +3,9 @@ package io.javabrains.springsecurityjwt;
 import io.javabrains.springsecurityjwt.filters.JwtRequestFilter;
 import io.javabrains.springsecurityjwt.models.AuthenticationRequest;
 import io.javabrains.springsecurityjwt.models.AuthenticationResponse;
-import io.javabrains.springsecurityjwt.models.Usert;
+import io.javabrains.springsecurityjwt.models.User;
+import io.javabrains.springsecurityjwt.repository.UserRepository;
 import io.javabrains.springsecurityjwt.util.JwtUtil;
-import repository.UserRepository;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,6 +42,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 
@@ -98,18 +100,16 @@ class HelloWorldController {
 	private MyUserDetailsService userDetailsService;
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<Usert> firstPage(@RequestBody Usert user ){
+	public ResponseEntity<User> firstPage(@RequestBody User user ){
 		
-		Usert usersaved = uerRepository.save(user);
+		User usersaved = uerRepository.save(user);
 		
 		System.out.println("register user " + usersaved.getName());
 		
-		return new ResponseEntity<Usert>(usersaved, HttpStatus.OK);
+		return new ResponseEntity<User>(usersaved, HttpStatus.OK);
 	}
 
-//	 @CrossOrigin()
-//	@CrossOrigin(origins = "*", allowedHeaders = "*")
-//	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<AuthenticationResponse> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 
@@ -128,7 +128,7 @@ class HelloWorldController {
 
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
 		
-		Optional<Usert> user = uerRepository.findByName(authenticationRequest.getUsername());
+		Optional<User> user = uerRepository.findByEmail(authenticationRequest.getUsername());
 
 		//return ResponseEntity.ok(new AuthenticationResponse(jwt, user.get()));
 		AuthenticationResponse re = new AuthenticationResponse(jwt, user.get());

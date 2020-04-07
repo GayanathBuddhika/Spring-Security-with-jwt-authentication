@@ -12,9 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 
 public class myUserDetail implements UserDetails {
-	
-	private String userName;
-	private String role;
+
 	private String password;
 	private String email;
 	
@@ -23,10 +21,9 @@ public class myUserDetail implements UserDetails {
 	
 	}
 
-	public myUserDetail(Usert user) {
+	public myUserDetail(User user) {
 		super();
-		this.userName = user.getName();
-		this.role = user.getRole();
+		
 		this.password = user.getPassword();
 		this.email = user.getEmail();
 	} 
@@ -46,7 +43,7 @@ public class myUserDetail implements UserDetails {
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return userName;
+		return email;
 	}
 
 	@Override

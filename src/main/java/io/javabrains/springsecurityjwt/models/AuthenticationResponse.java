@@ -6,9 +6,9 @@ public class AuthenticationResponse implements Serializable {
 
     private final String jwt;
     
-    private Usert myuser;
+    private User myuser;
 
-    public AuthenticationResponse(String jwt, Usert user) {
+    public AuthenticationResponse(String jwt, User user) {
         this.jwt = jwt;
         this.myuser = user;
     }
@@ -17,7 +17,7 @@ public class AuthenticationResponse implements Serializable {
         return jwt;
     }
     
-    public Usert getMyuser() {
+    public User getMyuser() {
     return myuser;	
     }
 }
