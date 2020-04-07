@@ -100,7 +100,11 @@ class HelloWorldController {
 	private MyUserDetailsService userDetailsService;
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<User> firstPage(@RequestBody User user ){
+	public ResponseEntity<User> firstPage(@RequestBody AuthenticationRequest request ){
+		
+		User user = uerRepository.findByEmail(request.getUsername()).get();
+		
+		user.setPassword(request.getPassword());
 		
 		User usersaved = uerRepository.save(user);
 		
