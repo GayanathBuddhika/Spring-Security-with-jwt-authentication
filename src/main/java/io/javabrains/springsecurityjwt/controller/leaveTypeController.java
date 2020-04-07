@@ -40,7 +40,7 @@ public class leaveTypeController {
 	
 			leaveTypeReposotory.save(leaveType);
 			map.put("action", new String("saved"));
-			map.put("user", leaveType);		
+			map.put("leaveType", leaveType);		
 			
 			return new ResponseEntity<Map<String, Object>>(map , HttpStatus.OK);		
 		
