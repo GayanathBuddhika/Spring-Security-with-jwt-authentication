@@ -9,9 +9,9 @@ import io.javabrains.springsecurityjwt.models.LeaveRequest;
 
 @Repository
 public interface LevaRequestRepository extends JpaRepository<LeaveRequest, String> {
+
+	List<LeaveRequest> findByUser_id(String id);
 	
-	LeaveRequest save(LeaveRequest leaveRequest);
 	
-	List<LeaveRequest> findAll();
 
 }

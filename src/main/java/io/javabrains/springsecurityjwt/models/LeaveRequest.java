@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class LeaveRequest {
@@ -14,9 +15,12 @@ public class LeaveRequest {
 	@Id
     private String id = UUID.randomUUID().toString();
 	private String description ;	
-	private String approve;
+	private Boolean approve;
 	private Date startDate;
 	private Date endDate;
+	
+	@Transient
+	private Boolean edit;
 	
 	@ManyToOne
 	@JoinColumn(name="leaving_type")
@@ -31,9 +35,8 @@ public class LeaveRequest {
 	}
 	
 	
-	public LeaveRequest(String id, String description, String approve, Date startDate, Date endDate,
-			LeaveType leaveType,
-			User user) {
+	public LeaveRequest(String id, String description, Boolean approve, Date startDate, Date endDate,
+			LeaveType leaveType, User user,Boolean edit) {
 		super();
 		this.id = id;
 		this.description = description;
@@ -42,6 +45,7 @@ public class LeaveRequest {
 		this.endDate = endDate;
 		this.leaveType = leaveType;
 		this.user = user;
+		this.edit = edit;
 	}
 
 	public String getId() {
@@ -60,11 +64,11 @@ public class LeaveRequest {
 		this.description = description;
 	}
 
-	public String getApprove() {
+	public Boolean getApprove() {
 		return approve;
 	}
 
-	public void setApprove(String approve) {
+	public void setApprove(Boolean approve) {
 		this.approve = approve;
 	}
 
@@ -99,7 +103,12 @@ public class LeaveRequest {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
+	public Boolean getEdit() {
+		return edit;
+	}
+	public void setEdit(Boolean edit) {
+		this.edit = edit;
+	}
 
 	
 }
